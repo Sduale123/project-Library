@@ -1,24 +1,26 @@
+// Function to get the total count of books
 function getTotalBooksCount(books) {
-return books.length
+  return books.length; // Returning the length of the books array
 }
 
+// Function to get the total count of accounts
 function getTotalAccountsCount(accounts) {
-  return accounts.length
+  return accounts.length; // Returning the length of the accounts array
 }
 
+// Function to get the count of books currently borrowed
 function getBooksBorrowedCount(books) {
+  // Filtering out books with at least one unreturned borrow record
   let booksCheckedOut = books.filter(
     (book) =>
      book.borrows.filter((record) => record.returned === false).length > 0
    );
-   return booksCheckedOut.length;
-  
-  // Hint: You can use the [`filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) method here. 
-  // If you get stuck, feel free to take a look at this repl.it: https://replit.com/@thinkful/getBooksBorrowedCount#index.js
+   return booksCheckedOut.length; // Returning the count of checked out books
 }
 
-// Tbis is a helper function that's called by other functions inside this file. You don't have to edit it.
+// This is a helper function that's called by other functions inside this file. You don't have to edit it.
 function _sortObjectByValues(obj) {
+  // Sorting an object by its values in descending order
   const keys = Object.keys(obj);
   return keys.sort((keyA, keyB) => {
     if (obj[keyA] > obj[keyB]) {
@@ -31,8 +33,9 @@ function _sortObjectByValues(obj) {
   });
 }
 
-// NOTE: YOU DON'T HAVE TO EDIT THE FUNCTIONS BELOW
+// Function to get the most common genres among books
 function getMostCommonGenres(books) {
+  // Counting the occurrences of each genre
   const count = books.reduce((acc, { genre }) => {
     if (acc[genre]) {
       acc[genre] += 1;
@@ -43,16 +46,20 @@ function getMostCommonGenres(books) {
     return acc;
   }, {});
 
+  // Sorting the genres by count in descending order and returning the top 5
   const sorted = _sortObjectByValues(count);
   return sorted.map((name) => ({ name, count: count[name] })).slice(0, 5);
 }
 
+// Function to get the most popular books based on borrow count
 function getMostPopularBooks(books) {
+  // Grouping books by ID and counting borrow occurrences
   const groupById = books.reduce((acc, { id, borrows }) => {
     acc[id] = borrows.length;
     return acc;
   }, {});
 
+  // Sorting books by borrow count in descending order and returning the top 5
   const sorted = _sortObjectByValues(groupById);
   return sorted
     .map((id) => {
@@ -62,7 +69,9 @@ function getMostPopularBooks(books) {
     .slice(0, 5);
 }
 
+// Function to get the most popular authors based on total borrow count of their books
 function getMostPopularAuthors(books, authors) {
+  // Counting total borrow occurrences for each author's books
   const count = books.reduce((acc, { authorId, borrows }) => {
     if (acc[authorId]) {
       acc[authorId].push(borrows.length);
@@ -73,11 +82,13 @@ function getMostPopularAuthors(books, authors) {
     return acc;
   }, {});
 
+  // Calculating the total borrow count for each author and sorting in descending order
   for (let id in count) {
     const sum = count[id].reduce((a, b) => a + b);
     count[id] = sum;
   }
 
+  // Sorting authors by borrow count in descending order and returning the top 5
   const sorted = _sortObjectByValues(count);
   return sorted
     .map((authorId) => {
