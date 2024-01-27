@@ -1,38 +1,38 @@
+// Function to find an account by its ID in a list of accounts
 function findAccountById(accounts, id) {
+  // Using the find() method to locate the account with the specified ID
   let accountById = accounts.find((account) => account.id === id);
-  return accountById;
+  return accountById; // Returning the account object found
 }
 
-  
-  // Hint: You can use the [`find()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) method here. 
+// Function to sort accounts alphabetically by last name
+function sortAccountsByLastName(accounts) {
+  // Creating a copy of the accounts array to avoid mutating the original array
+  const sorted = [...accounts];
+  // Sorting the copied array based on last names in a case-insensitive manner
+  sorted.sort((ac1, ac2) =>
+    ac1.name.last.toLowerCase() > ac2.name.last.toLowerCase() ? 1 : -1
+  );
+  return sorted;
+}
 
-
-  function sortAccountsByLastName(accounts) {
-    const sorted = [...accounts];
-     sorted.sort((ac1, ac2) =>
-       ac1.name.last.toLowerCase() > ac2.name.last.toLowerCase() ? 1 : -1
-     );
-     return sorted;
-   }
-     // Hint: You can use the [`sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) method here. 
-
+// Function to get the full names of accounts
 function getAccountFullNames(accounts) {
-  return accounts.map(({name:{first, last}}) => first + ' ' + last);
+  // Using the map() method to extract and format first and last names
+  return accounts.map(({ name: { first, last } }) => first + ' ' + last);
 }
-  // Hint: You can use the [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method here.
 
-
-// NOTE: YOU DON'T HAVE TO EDIT THE FUNCTIONS BELOW
+// Function to get the total number of borrows made by an account
 function getTotalNumberOfBorrows(account, books) {
   return books.reduce((acc, book) => {
     const count = book.borrows.reduce((borrowAcc, borrow) => {
       return borrow.id === account.id ? borrowAcc + 1 : borrowAcc;
     }, 0);
-
     return acc + count;
   }, 0);
 }
 
+// Function to get the list of books currently possessed by an account
 function getBooksPossessedByAccount(account, books, authors) {
   return books
     .filter((book) => {
