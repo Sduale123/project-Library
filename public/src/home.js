@@ -1,11 +1,11 @@
 // Function to get the total count of books
 function getTotalBooksCount(books) {
-  return books.length; // Returning the length of the books array
+  return books.length; 
 }
 
 // Function to get the total count of accounts
 function getTotalAccountsCount(accounts) {
-  return accounts.length; // Returning the length of the accounts array
+  return accounts.length;
 }
 
 // Function to get the count of books currently borrowed
@@ -15,10 +15,10 @@ function getBooksBorrowedCount(books) {
     (book) =>
      book.borrows.filter((record) => record.returned === false).length > 0
    );
-   return booksCheckedOut.length; // Returning the count of checked out books
+   return booksCheckedOut.length;
 }
 
-// This is a helper function that's called by other functions inside this file. You don't have to edit it.
+// This is a helper function that's called by other functions
 function _sortObjectByValues(obj) {
   // Sorting an object by its values in descending order
   const keys = Object.keys(obj);
